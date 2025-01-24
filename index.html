@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latihan Menulis</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Halaman Utama -->
+    <div id="halamanUtama" style="text-align: center; padding: 20px;">
+        <!-- Bagian Header -->
+        <header style="background-color: #FFEECC; width: 100%; padding: 20px; display: flex; align-items: center; justify-content: space-between;">
+            <!-- Teks Header -->
+            <div style="text-align: left; max-width: 60%;">
+                <h1 style="font-family: 'Fredoka One', cursive; color: #D91656; margin-bottom: 10px;">Back To School</h1>
+                <p style="font-size: 18px; color: #4A4A4A;">Mari berlatih menulis dengan menirukan pola yang ada!</p>
+                <!-- Tombol Mulai Latihan -->
+                <button id="mulaiLatihan" class="btn-latihan" onclick="mulaiLatihan()">Mulai Latihan</button>
+            </div>
+
+            <!-- Gambar Header -->
+            <img src="images/header-illustration.png" alt="Ilustrasi Header" style="max-width: 40%; height: auto;">
+        </header>
+    </div>
+
+    <!-- Halaman Latihan -->
+    <div id="halamanLatihan" style="display: none; text-align: center; padding: 20px;">
+        <!-- Bagian Judul -->
+        <div style="margin-bottom: 20px;">
+            <h2 id="judulHuruf" style="font-family: 'Fredoka One', cursive; color: #D91656;">Gambar huruf 'A'</h2>
+        </div>
+
+        <!-- Bagian Gambar dan Kanvas -->
+        <div style="display: flex; justify-content: center; gap: 20px; align-items: flex-start;">
+            <!-- Kontainer Gambar -->
+            <div id="kontainerGambar" style="text-align: center;">
+                <img id="gambarAlfabet" src="images/A.png" alt="Huruf A" style="width: 300px;">
+                <p id="namaAlfabet" style="font-size: 3rem;font-family: 'Fredoka One'; font-weight: bold; color: #326ea7;">Anjing</p>
+            </div>
+
+            <!-- Kanvas Menggambar -->
+            <canvas id="kanvasMenggambar" width="300" height="300" style="border: 3px solid #4A90E2;"></canvas>
+        </div>
+
+        <!-- Tombol Navigasi -->
+        <div style="margin-top: 20px;">
+            <button class="btn-pola" onclick="polaBerikutnya()">Pola Berikutnya</button>
+            <button class="btn-pola" onclick="hapusKanvas()">Hapus</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Urutan huruf A sampai Z
+        const alfabet = [
+            { huruf: 'A', gambar: 'images/A.png', nama: 'Anjing' },
+            { huruf: 'B', gambar: 'images/B.png', nama: 'Bunga' },
+            { huruf: 'C', gambar: 'images/C.png', nama: 'Cacing' },
+            { huruf: 'D', gambar: 'images/D.png', nama: 'Domba' },
+            { huruf: 'E', gambar: 'images/E.png', nama: 'Elang' },
+            { huruf: 'F', gambar: 'images/F.png', nama: 'Flaminggo' },
+            { huruf: 'G', gambar: 'images/G.png', nama: 'Gajah' },
+            { huruf: 'H', gambar: 'images/H.png', nama: 'Harimau' },
+            { huruf: 'I', gambar: 'images/I.png', nama: 'Ikan' },
+            { huruf: 'J', gambar: 'images/J.png', nama: 'Jambu' },
+            { huruf: 'K', gambar: 'images/K.png', nama: 'Kucing' },
+            { huruf: 'L', gambar: 'images/L.png', nama: 'Lalat' },
+            { huruf: 'M', gambar: 'images/M.png', nama: 'Mobil' },
+            { huruf: 'N', gambar: 'images/N.png', nama: 'Nanas' },
+            { huruf: 'O', gambar: 'images/O.png', nama: 'Obor' },
+            { huruf: 'P', gambar: 'images/P.png', nama: 'Pesawat' },
+            { huruf: 'Q', gambar: 'images/Q.png', nama: 'Queen' },
+            { huruf: 'R', gambar: 'images/R.png', nama: 'Rumah' },
+            { huruf: 'S', gambar: 'images/S.png', nama: 'Sepatu' },
+            { huruf: 'T', gambar: 'images/T.png', nama: 'Tv' },
+            { huruf: 'U', gambar: 'images/U.png', nama: 'Ular' },
+            { huruf: 'V', gambar: 'images/V.png', nama: 'Vas' },
+            { huruf: 'W', gambar: 'images/W.png', nama: 'Wayang' },
+            { huruf: 'X', gambar: 'images/X.png', nama: 'Xilofano' },
+            { huruf: 'Y', gambar: 'images/Y.png', nama: 'Yo-Yo' },
+            { huruf: 'Z', gambar: 'images/Z.png', nama: 'Zebra' }
+        ];
+
+        let indexHuruf = 0; // Indeks huruf yang sedang ditampilkan
+
+        // Fungsi untuk berpindah ke halaman latihan
+        function mulaiLatihan() {
+            document.getElementById("halamanUtama").style.display = "none";
+            document.getElementById("halamanLatihan").style.display = "block";
+            tampilkanHuruf(); // Menampilkan huruf pertama
+        }
+
+        // Fungsi untuk menampilkan huruf dan gambar
+        function tampilkanHuruf() {
+            const dataHuruf = alfabet[indexHuruf];
+            document.getElementById("judulHuruf").textContent = `Gambar huruf '${dataHuruf.huruf}'`;
+            document.getElementById("gambarAlfabet").src = dataHuruf.gambar;
+            document.getElementById("namaAlfabet").textContent = dataHuruf.nama;
+        }
+
+        // Fungsi untuk berpindah ke pola berikutnya
+        function polaBerikutnya() {
+            indexHuruf = (indexHuruf + 1) % alfabet.length; // Pindah ke huruf berikutnya, kembali ke A setelah Z
+            tampilkanHuruf();
+        }
+
+    // Fungsi untuk menghapus kanvas
+    function hapusKanvas() {
+        const kanvas = document.getElementById("kanvasMenggambar");
+        const context = kanvas.getContext("2d");
+        context.clearRect(0, 0, kanvas.width, kanvas.height);
+        
+        // Pastikan elemen gambar tetap terlihat (jika ada pengaturan display:none)
+        document.getElementById("kontainerGambar").style.display = "block";
+    }
+    
+    </script>
+</body>
+</html>

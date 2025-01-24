@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@400;600&display=swap');
+
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    background-color: #FFEECC; /* Warna latar */
+}
+
+/* Header Styling */
+header {
+    background-color: #FFEECC;
+    padding: 30px 20px;
+    text-align: center;
+}
+
+header h1 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 6rem; /* Ukuran font */
+    color: #D91656;
+    margin: 0;
+}
+
+header p {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #4A4A4A;
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+/* Halaman Latihan */
+#halamanLatihan h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 3rem;
+    color: #D91656;
+    margin-bottom: 20px;
+}
+
+#kontainerGambar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    visibility: visible; /* Pastikan elemen terlihat */
+}
+
+#gambarAlfabet {
+    width: 200px;
+    height: auto;
+}
+
+#kanvasMenggambar {
+    border: 3px solid #4A90E2;
+    background-color: white;
+    width: 300px;
+    height: 300px;
+    margin-top: 20px;
+}
+
+/* Tombol Navigasi */
+button {
+    margin: 10px;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #4A90E2;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #3C78B5;
+    transform: scale(1.05);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+/* Tombol khusus */
+.btn-latihan {
+    padding: 15px 40px;
+    font-size: 1.5rem;
+    background-color: #FF6F61;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-latihan:hover {
+    background-color: #FF5141;
+    transform: scale(1.1);
+}
+
+/* Layout Gambar dan Kanvas */
+#halamanLatihan {
+    text-align: center;
+    padding: 30px;
+}
+
+#kontainerGambar,
+#kanvasMenggambar {
+    display: inline-block;
+    vertical-align: top;
+    margin: 20px;
+}

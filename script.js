@@ -60,16 +60,6 @@ function polaBerikutnya() {
         alert("Anda harus menggambar huruf ini terlebih dahulu sebelum melanjutkan ke huruf berikutnya!");
         return;
     }
-
-    // Cek apakah gambar yang digambar sudah benar
-    const benar = cekKesalahan();
-    if (benar) {
-        hapusKanvas();
-        indexHuruf = (indexHuruf + 1) % alfabet.length;
-        tampilkanHuruf();
-    } else {
-        alert("Coba lagi yaaa!");
-    }
 }
 
 // Fungsi untuk menghapus kanvas

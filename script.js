@@ -24,7 +24,6 @@ const alfabet = [
     { huruf: 'X', gambar: 'images/X.png', nama: 'Xilofano' },
     { huruf: 'Y', gambar: 'images/Y.png', nama: 'Yo-Yo' },
     { huruf: 'Z', gambar: 'images/Z.png', nama: 'Zebra' }
-    // Tambahkan alfabet lainnya di sini
 ];
 
 let indexHuruf = 0; // Mulai dari huruf A (index 0)
@@ -60,6 +59,11 @@ function polaBerikutnya() {
         alert("Anda harus menggambar huruf ini terlebih dahulu sebelum melanjutkan ke huruf berikutnya!");
         return;
     }
+
+    // Hapus kanvas dan tampilkan huruf berikutnya
+    hapusKanvas();
+    indexHuruf = (indexHuruf + 1) % alfabet.length;
+    tampilkanHuruf();
 }
 
 // Fungsi untuk menghapus kanvas
@@ -121,71 +125,4 @@ function tampilkanPanduan(huruf) {
     gambarPanduan.onerror = () => {
         console.error(`Gambar panduan ${huruf} gagal dimuat.`);
     };
-}
-
-// Fungsi untuk mengecek kesalahan gambar
-function cekKesalahan() {
-    const kanvas = document.getElementById("kanvasMenggambar");
-    const context = kanvas.getContext("2d");
-
-    // Ambil gambar yang digambar oleh pengguna
-    const imageDataUser = context.getImageData(0, 0, kanvas.width, kanvas.height);
-    const imageDataPanduan = getImageDataFromPanduan(); // Fungsi ini akan mengambil gambar dari panduan yang digunakan
-
-    // Bandingkan data gambar yang digambar dengan data gambar panduan
-    return isSamePattern(imageDataUser, imageDataPanduan);
-}
-
-// Fungsi untuk mendapatkan data gambar panduan
-function getImageDataFromPanduan() {
-    const kanvas = document.createElement("canvas");
-    const konteks = kanvas.getContext("2d");
-    const gambarPanduan = new Image();
-    gambarPanduan.src = `images/${alfabet[indexHuruf].huruf} pan.png`; // Menggunakan gambar panduan
-
-    kanvas.width = 300; // Sesuaikan ukuran sesuai kebutuhan
-    kanvas.height = 300;
-
-    gambarPanduan.onload = () => {
-        konteks.drawImage(gambarPanduan, 0, 0, kanvas.width, kanvas.height);
-    };
-
-    return konteks.getImageData(0, 0, kanvas.width, kanvas.height);
-}
-
-// Fungsi untuk membandingkan dua pola gambar (pengguna dan panduan)
-function isSamePattern(imageDataUser, imageDataPanduan) {
-    const threshold = 50; // Toleransi perbedaan (0-255)
-    const width = imageDataUser.width;
-    const height = imageDataUser.height;
-
-    let matchCount = 0; // Jumlah piksel yang cocok
-    let totalPixels = width * height; // Total piksel yang dibandingkan
-
-    for (let i = 0; i < imageDataUser.data.length; i += 4) {
-        const rUser = imageDataUser.data[i];
-        const gUser = imageDataUser.data[i + 1];
-        const bUser = imageDataUser.data[i + 2];
-        const aUser = imageDataUser.data[i + 3];
-
-        const rPanduan = imageDataPanduan.data[i];
-        const gPanduan = imageDataPanduan.data[i + 1];
-        const bPanduan = imageDataPanduan.data[i + 2];
-        const aPanduan = imageDataPanduan.data[i + 3];
-
-        // Hitung perbedaan warna (Euclidean distance)
-        const diff = Math.sqrt(
-            Math.pow(rUser - rPanduan, 2) +
-            Math.pow(gUser - gPanduan, 2) +
-            Math.pow(bUser - bPanduan, 2)
-        );
-
-        if (diff <= threshold && aUser > 0 && aPanduan > 0) {
-            matchCount++;
-        }
-    }
-
-    // Jika persentase kecocokan cukup tinggi, anggap benar
-    const matchPercentage = (matchCount / totalPixels) * 100;
-    return matchPercentage > 30; // 30% piksel cocok dianggap benar
 }
